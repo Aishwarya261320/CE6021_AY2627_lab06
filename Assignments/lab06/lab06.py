@@ -188,9 +188,8 @@ class ScaleInvDet:
             result = self.lap_max_det(scale_space, row, col, k)
             if result:
                 maxima.append(result)
-
-        if not maxima:
-            return np.empty((0, 4))
+            if not maxima:
+              return np.empty((0, 4))
         return np.array(maxima)
 
     def blob_circles(self, maxima):
