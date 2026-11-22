@@ -185,12 +185,12 @@ class ScaleInvDet:
         """
         maxima = []
         for row, col, k in tqdm(self.candidate_points(scale_space), desc="Finding maxima"):
-          result = self.lap_max_det(scale_space, row, col, k)
-        if result:
-          maxima.append(result)
+            result = self.lap_max_det(scale_space, row, col, k)
+            if result:
+                maxima.append(result)
 
         if not maxima:
-          return np.empty((0, 4))
+            return np.empty((0, 4))
         return np.array(maxima)
 
     def blob_circles(self, maxima):
