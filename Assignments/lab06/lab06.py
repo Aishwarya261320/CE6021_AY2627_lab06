@@ -20,6 +20,7 @@ Run evaluate_lab06.py after each step to see your progress.
 """
 import numpy as np
 import os
+import cv2
 import sys
 from scipy import signal
 from tqdm import tqdm
