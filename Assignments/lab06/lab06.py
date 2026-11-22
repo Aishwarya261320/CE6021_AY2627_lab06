@@ -183,15 +183,11 @@ class ScaleInvDet:
             np.ndarray: shape (N, 4); each row is [magnitude, row, col, sigma].
                         Shape (0, 4) if there are none.
         """
-        maxima = []
-        for row, col, k in tqdm(self.candidate_points(scale_space), desc="Finding maxima"):
-            result = self.lap_max_det(scale_space, row, col, k)
-            if result:
-                maxima.append(result)
-            if not maxima:
-              return np.empty((0, 4))
-        return np.array(maxima)
-
+        candidates = self.candidate_points(scale_space)
+        results = [self.lap_max_det(scale_space, r, c, k) for r, c, k in tqdm(candidates, desc="Finding maxima")]
+        maxima = [res for res in results if res]
+        return np.array(maxima) if maxima else np.empty((0, 4))
+      
     def blob_circles(self, maxima):
         """Step 9 — the circle that describes each blob: its centre, and a
         radius of sqrt(2) * sigma, rounded up to a whole pixel.
